@@ -21,3 +21,14 @@
 - Discussed the use of a button's (`rx.button()`) `on_click` action to change the state (`rx.State`) on the page, specifically the page's heading
 - Use of the `self` parameter in the method definition to update the state (???)
 - Reference the variable defined in the `State` class by using `State.variable_name` &rarr; This gets placed wherever you want the state to be updated (in our case, the page's heading)
+
+## HTML Inputs for Dynamic Content Changes
+- Use an HTML form input to make changes to the heading (vs. clicking a button or another element)
+- Use of `rx.input()` for input as well as the `on_change` handler to listen for a change (when changes happen)
+  - Need to use `default_value` over `value` because of how `value` works with dynamic content changes &rarr; Like placeholder text (???)
+- Discusses his method naming convention to understand what the method is doing
+- All kinds of events and all kinds of event handlers
+  - E.g., change, click, mouse-over, etc.
+  - Reflex can listen for an event to happen and perform an action in response
+  - Combine different events (e.g., an `on_click` and an `on_change`)
+  - Use an event to perform an action that makes no visible change to the frontend (e.g., clicking something triggers)
