@@ -16,3 +16,8 @@
     - Install Reflex by running `pip install reflex`
     - Set up Reflex's project structure by running `reflex init`
     - Verify proper installation of Reflex by running `reflex run`
+
+## Dynamic Content and on_click Events
+- Discussed the use of a button's (`rx.button()`) `on_click` action to change the state (`rx.State`) on the page, specifically the page's heading
+- Use of the `self` parameter in the method definition to update the state (???)
+- Reference the variable defined in the `State` class by using `State.variable_name` &rarr; This gets placed wherever you want the state to be updated (in our case, the page's heading)
