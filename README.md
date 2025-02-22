@@ -76,3 +76,8 @@
   - Create a `nav.py` file to hold the `navbar()`
   - Extract the `base_page()` and `navbar()` from `full_stack_python.py` into their respective files, adding the necessary imports along the way
 - Fixed the dark/light mode button
+
+## Identifying Rendered Components in the Browser
+- Discusses adding `id`'s to various components in order to see how those components are rendered in the browser
+- Illustrates how to modify the style of a component by first identifying the component and then using CSS
+- Stresses the importance of being able to identify Reflex Components and knowing how they get rendered in the browser
