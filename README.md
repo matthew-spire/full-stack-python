@@ -66,3 +66,13 @@
   - I opted to use the [Basic Navbar](https://reflex.dev/docs/recipes/layout/navbar#basic)
 - Needed to save the "logo.jpg" to the assets folder
 - Responsiveness and the different breakpoints available (e.g., `rx.desktop_only()`, `rx.mobile_only()`, `rx.tablet_only()`, etc.)
+
+## Better Code Management
+- Break the `full_stack_python.py` file into smaller parts to make it more manageable, scalable, etc.
+- Create a `ui` folder inside the `full_stack_python` directory
+- Within the `ui` folder
+  - Create a `__init__.py` file to make the `ui` directory a Python module &rarr; **Required**
+  - Create a `base.py` file that will hold the `base_page()`
+  - Create a `nav.py` file to hold the `navbar()`
+  - Extract the `base_page()` and `navbar()` from `full_stack_python.py` into their respective files, adding the necessary imports along the way
+- Fixed the dark/light mode button
