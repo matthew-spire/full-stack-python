@@ -16,28 +16,29 @@ class State(rx.State):
 
 def index() -> rx.Component:
     # Welcome Page (Index)
-    return base_page(
-        rx.vstack(
-            rx.heading("Welcome to Reflex! ", State.heading_addition, size="9"),
-            rx.text(
-                "Get started by editing ",
-                rx.code(f"{config.app_name}/{config.app_name}.py"),
-                size="5",
+    child = rx.vstack(
+                rx.heading("Welcome to Reflex! ", State.heading_addition, size="9"),
+                rx.text(
+                    "Get started by editing ",
+                    rx.code(f"{config.app_name}/{config.app_name}.py"),
+                    size="5",
+                ),
+                rx.input(
+                    default_value=State.heading_addition,
+                    on_change=State.handle_heading_input_change
+                ),
+                rx.link(
+                    rx.button("Check out our docs!"),
+                    href="https://reflex.dev/docs/getting-started/introduction/",
+                    is_external=True,
+                ),
+                spacing="5",
+                justify="center",
+                min_height="85vh",
+                align="center",
+                text_align="center",
             ),
-            rx.input(
-                default_value=State.heading_addition,
-                on_change=State.handle_heading_input_change
-            ),
-            rx.link(
-                rx.button("Check out our docs!"),
-                href="https://reflex.dev/docs/getting-started/introduction/",
-                is_external=True,
-            ),
-            spacing="5",
-            justify="center",
-            min_height="85vh",
-        ),
-    )
+    return base_page(child)
 
 
 app = rx.App()

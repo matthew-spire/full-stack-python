@@ -81,3 +81,10 @@
 - Discusses adding `id`'s to various components in order to see how those components are rendered in the browser
 - Illustrates how to modify the style of a component by first identifying the component and then using CSS
 - Stresses the importance of being able to identify Reflex Components and knowing how they get rendered in the browser
+
+## Full Width Navbar and Content
+- `rx.fragment()` does not render anything and you cannot apply styles to it
+- Issue is with the `child` element &rarr; needs to be contained within a box like the `navbar` and have additional styling (like the `navbar` has at root element, i.e., the `rx.box()`)
+- Each component can have its own style &rarr; Need to think of where the component is being used or exists and modify the style there
+  - The `child` element currently exists inside the `base_page()` function in `full_stack_python.py` &rarr; You would need to modify the style of `rx.vstack()`
+- Importance of referencing the [Components documentation](https://reflex.dev/docs/library/) and what styles you can change for a particular component &rarr; Look at the API Reference
