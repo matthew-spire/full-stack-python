@@ -56,5 +56,7 @@
   - Enforce type checking by specifying a parameter's type
     - For example `child: rx.Component` specifies that the `child` parameter must be of type `rx.Component`
   - Ability to conditionally render elements
+    - `*([navbar()] if not hide_navbar else [])`
+      - Alternative that is more intuitive: `*([navbar()] if hide_navbar == False else [])`
     - `hide_navbar: bool = False` allows dynamically showing/hiding the navbar
     - Conditional rendering: If `hide_navbar` is `True`, the navbar is omitted
