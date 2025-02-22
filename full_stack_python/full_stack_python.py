@@ -12,11 +12,21 @@ class State(rx.State):
     def handle_heading_input_change(self, val):
         self.heading_addition = val
 
+def navbar() -> rx.Component:
+    return rx.heading("Navbar", size="5")
+
+def base_page(child: rx.Component, hide_navbar: bool = False, *args, **kwargs) -> rx.Component:
+    return rx.container(
+        *([navbar()] if not hide_navbar else []), # Conditionally show navbar
+        rx.color_mode.button(position="top-right"),
+        child, # This is the dynamic content (i.e., the content that changes from page to page)
+        rx.logo(),
+    )
+
 
 def index() -> rx.Component:
     # Welcome Page (Index)
-    return rx.container(
-        rx.color_mode.button(position="top-right"),
+    return base_page(
         rx.vstack(
             rx.heading("Welcome to Reflex! ", State.heading_addition, size="9"),
             rx.text(
@@ -37,7 +47,7 @@ def index() -> rx.Component:
             justify="center",
             min_height="85vh",
         ),
-        rx.logo(),
+        hide_navbar=False,
     )
 
 

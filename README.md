@@ -32,3 +32,29 @@
   - Reflex can listen for an event to happen and perform an action in response
   - Combine different events (e.g., an `on_click` and an `on_change`)
   - Use an event to perform an action that makes no visible change to the frontend (e.g., clicking something triggers)
+
+## Building a Custom Reflex Component
+- Every frontend element that you want to render out is a Reflex Component
+  - We do not write any HTML &rarr; Use Reflex Components that get rendered out as HTML
+  - Reflex Components allow you to focus on the core implementation and functionality, without having to worry about the HTML
+- Seems to be alluding to page templates
+  - Includes a navbar and a content area where other components can be placed dynamically
+- Page definitions should specify the data type that is coming back
+  - E.g., `def base_page() -> rx.Component` specifies that the data type coming back is `rx.Component`
+  - Best practice
+- `base_page()`
+  - Base page component to serve as a consistent layout across different pages
+  - `rx.container()` serves as the main wrapper in which other components sit
+  - `base_page()` parameter examples &rarr; `base_page(child: rx.Component, *args, **kwargs)`
+    - `child: rx.Component` &rarr; This is the dynamic content that changes from page to page
+    - `*args` &rarr; Captures multiple positional arguments
+      - Not necessary if where `base_page()` is being returned has no positional arguments
+      - `print([type(x) for x in args])` &rarr; Helps debug the types of components being passed
+      - `return rx.container(*args)` unpacks and injects components dynamically
+    - `**kwargs` &rarr; Captures keyword arguments
+      - Not necessary if where `base_page()` is being returned has no keyword arguments
+  - Enforce type checking by specifying a parameter's type
+    - For example `child: rx.Component` specifies that the `child` parameter must be of type `rx.Component`
+  - Ability to conditionally render elements
+    - `hide_navbar: bool = False` allows dynamically showing/hiding the navbar
+    - Conditional rendering: If `hide_navbar` is `True`, the navbar is omitted
