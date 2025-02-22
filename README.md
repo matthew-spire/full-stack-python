@@ -60,3 +60,9 @@
       - Alternative that is more intuitive: `*([navbar()] if hide_navbar == False else [])`
     - `hide_navbar: bool = False` allows dynamically showing/hiding the navbar
     - Conditional rendering: If `hide_navbar` is `True`, the navbar is omitted
+
+## Using the Navbar Recipe
+- Copy-paste the [Buttons Navbar](https://reflex.dev/docs/recipes/layout/navbar#buttons) from Reflex's [Recipes](https://reflex.dev/docs/recipes/) page
+  - I opted to use the [Basic Navbar](https://reflex.dev/docs/recipes/layout/navbar#basic)
+- Needed to save the "logo.jpg" to the assets folder
+- Responsiveness and the different breakpoints available (e.g., `rx.desktop_only()`, `rx.mobile_only()`, `rx.tablet_only()`, etc.)
