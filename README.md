@@ -88,3 +88,15 @@
 - Each component can have its own style &rarr; Need to think of where the component is being used or exists and modify the style there
   - The `child` element currently exists inside the `base_page()` function in `full_stack_python.py` &rarr; You would need to modify the style of `rx.vstack()`
 - Importance of referencing the [Components documentation](https://reflex.dev/docs/library/) and what styles you can change for a particular component &rarr; Look at the API Reference
+- Look at absolute parent &rarr; Child &rarr; Grandchildren &rarr; Etc.
+
+## Pages and URL Routes
+- Create a new page by copy-pasting the `index()` and making modifications
+  - Rename `index()` to `about_page()`
+  - Remove the input and some other content
+  - Change the styling
+- Make the new page available by adding it
+  - Use `app.add_page(about, route="/about")` &rarr; Note the need to specify a route, which is needed to actually access the page
+- Issue: `full_stack_python.py` is, once again, becoming unmanageable &rarr; Extract the pages out into a `pages` directory
+  - Again, make sure after extracting the pages into their own files that you include the necessary imports
+  - Using `__init__.py` in the `pages` module to make adding additional pages cleaner (???) &rarr; Makes the routing easier
