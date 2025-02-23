@@ -121,3 +121,18 @@
   - E.g., in `about.py` add `rx.page(route="/about")` before the page's function definition
 - Should almost always wrap a button in `rx.link()` if you want the button to act as a link &rarr; Allows people to right-click and copy the link address whereas using `on_click` does not
 - Problems: How to handle all our page's routes and creating a general state event that can be used in other places (e.g., our dropdown navigation bar)
+
+## URL Route Path Constants
+- Use of an incorrect path (route) is really easy and can have disastrous consequences for your app
+- Set constant values for our primary routes
+  - Constant values can change, but we can use them throughout our entire application (???)
+- Created a `navigation` folder
+  - Made `navigation` a module by adding `__init__.py`
+  - Created a `routes.py` file, which will hold the constants for our routes
+  - In `__init__.py` import the `routes` &rarr; Use `routes` in a way similar to pages (i.e., `pages.about_page`)
+- In `full_stack_python.py`, update the route to use the constant value
+  - The constant value can be used anywhere the route appears &rarr; If the route is changed in `routes.py`, then it will update everywhere
+- Update `nav.py` to use the route constants
+- Using routes in this way sets us up to create events for the mobile and tablet menu in the navbar
+- Now have reusable routes
+- Fixed mobile and tablet navigation items
