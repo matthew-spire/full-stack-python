@@ -100,3 +100,15 @@
 - Issue: `full_stack_python.py` is, once again, becoming unmanageable &rarr; Extract the pages out into a `pages` directory
   - Again, make sure after extracting the pages into their own files that you include the necessary imports
   - Using `__init__.py` in the `pages` module to make adding additional pages cleaner (???) &rarr; Makes the routing easier
+
+## Using Link-Based Navigation
+- Clicking on a button or link that should navigate &rarr; Page should reflect
+- Use of `rx.link()` with text describing the link and an `href` with the route of the link as arguments &rarr; `rx.link("About Page", href="/about")`
+- Buttons do not go anywhere unless they have an accompanying anchor tag
+- In `nav.py`
+  - `navbar_link()` is a reusable component
+  - Need to change the links in `desktop_only()`
+  - Can make the image or the heading a link by wrapping their contents in `rx.link()`
+  - `mobile_and_tablet()` work differently
+    - Using `rx.menu.item(rx.link("Home", href="/"))` is only a semi-working solution
+    - Need additional kind of navigation that is not an anchor tag
