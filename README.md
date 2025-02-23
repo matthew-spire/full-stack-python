@@ -147,3 +147,18 @@
   - E.g., `rx.menu.item("Home", on_click=navigation.NavState.to_home)`
   - This still seems to have an issue where the menu item is acting like a button &rarr; You cannot right-click and copy the link address
 - `NavState` is still useful for redirecting people after login, redirecting due to timeout, etc. &rarr; Use the redirect in other places
+
+## Contact Form
+- Added `contact.py` to the `pages` folder
+  - Used the decorator to add the page vice adding to `full_stack_python.py` 
+- Updated `__init__.py` in the `pages` directory to reflect adding `contact.py`
+- Refer to the [Form documentation](https://reflex.dev/docs/library/forms/form/) and example on the Reflex website
+- In `contact.py`
+  - Create a `ContactState` class &rarr; Act as our state variable for the Contact form
+    - Create a dictionary to store the form data
+    - Add the method to handle the form submission
+  - Put the form inside of the child element, replacing `rx.txt()`
+  - Create a new variable `contact_form = rx.form()`
+  - Use the example form in the Form documentation to create the form
+    - Default input type is text &rarr; Specify the input type for things like email, phone number, etc.
+    - For an input, you can set `required=True` to ensure the form field is filled out &rarr; How to display a message next to a field if it is not filled in/out correctly? Use state variables, event handlers, and conditional rendering
