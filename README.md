@@ -136,3 +136,14 @@
 - Using routes in this way sets us up to create events for the mobile and tablet menu in the navbar
 - Now have reusable routes
 - Fixed mobile and tablet navigation items
+
+## Navigation State
+- Combine use of route constants w/ using `rx.redirect()` and navigation state &rarr; Create a state class specifically for navigation
+- Allows us to implement link-like behavior for our mobile and tablet navigation items
+- Create a `state.py` file in the `navigation` folder
+  - In `state.py`, we are going to create our navigation state class and, within that class, define methods that use `rx.redirect()` to redirect to our routes
+- Import the `NavState` in the `__init__.py` file in the `navigation` directory
+- In `nav.py` we can now update the navbar links in the mobile and tablet section
+  - E.g., `rx.menu.item("Home", on_click=navigation.NavState.to_home)`
+  - This still seems to have an issue where the menu item is acting like a button &rarr; You cannot right-click and copy the link address
+- `NavState` is still useful for redirecting people after login, redirecting due to timeout, etc. &rarr; Use the redirect in other places
