@@ -7,6 +7,7 @@ from .ui.base import base_page
 # from .pages.about import about_page
 from . import pages
 
+
 class State(rx.State):
     """The app state."""
     heading_addition = ""
