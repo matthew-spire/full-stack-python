@@ -112,3 +112,12 @@
   - `mobile_and_tablet()` work differently
     - Using `rx.menu.item(rx.link("Home", href="/"))` is only a semi-working solution
     - Need additional kind of navigation that is not an anchor tag
+
+## Click Events and Reflex Redirect
+- Use event handlers to redirect users to any page on our site
+- Can use an `on_click` event and `rx.redirect("/")` to redirect the user to the appropriate page &rarr; E.g., `rx.button("About", on_click=rx.redirect("/about"))`
+- Problem with programmatic redirecting &rarr; You might be using a route that just does not exist
+- You do not need the route in `full_stack_python.py` &rarr; Use a decorator in the actual page
+  - E.g., in `about.py` add `rx.page(route="/about")` before the page's function definition
+- Should almost always wrap a button in `rx.link()` if you want the button to act as a link &rarr; Allows people to right-click and copy the link address whereas using `on_click` does not
+- Problems: How to handle all our page's routes and creating a general state event that can be used in other places (e.g., our dropdown navigation bar)
