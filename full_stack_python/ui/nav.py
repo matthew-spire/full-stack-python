@@ -70,6 +70,7 @@ def navbar() -> rx.Component:
                         rx.icon("menu", size=30),
                     ),
                     rx.menu.content(
+                        # rx.menu.item("Home", on_click=navigation.NavState.to_home),
                         menu_link("Home", navigation.routes.HOME_ROUTE),
                         menu_link("About", navigation.routes.ABOUT_ROUTE),
                         menu_link("Pricing", navigation.routes.PRICING_ROUTE),
