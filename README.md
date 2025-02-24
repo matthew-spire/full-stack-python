@@ -194,9 +194,9 @@
 
 ## Refresh State with Python Asyncio Timeouts
 - Implement a timeout method &rarr; Want to change the `did_submit` status of our form after a certain amount of time
-- Need to turn the `handle_submit` function into an asynchronous one, then use built-in asynchronous features of Python &rarr; `asyncio`
+- Need to turn the `handle_submit` method into an asynchronous one, then use built-in asynchronous features of Python &rarr; `asyncio`
   - Use of `yield` after the form data has been submitted and `did_submit` is set to `True`, as well after setting `did_submit` back to `False`
-    - `yield` tells Reflex to process state updates incrementally rather than all at once at the end of the function &rarr; Without `yield`, Reflex will batch all state changes and update the UI only after the function finishes, which could lead to undesired UI behavior
+    - `yield` tells Reflex to process state updates incrementally rather than all at once at the end of the method &rarr; Without `yield`, Reflex will batch all state changes and update the UI only after the method finishes, which could lead to undesired UI behavior
   - Use `await asyncio.sleep(2)` to specify how long to wait before executing the next line of code
 - Timeout is different than countdown
 
@@ -205,7 +205,7 @@
 - Add a variable for the amount of time you want to count down to the state class
 - Create a `rx.var` for the `time_left` &rarr; Makes the variable accessible outside the state
   - Use the variable in the child element just below the heading
-- Function to actually perform the countdown
+- Method to actually perform the countdown
   - Use a while loop to decrement the `time_left` as long as `time_left > 0`
   - Need to use `await asyncio.sleep(1)` and then `yield` the result
 - Start the countdown, which can be done in the `@rx.page()` decorator
@@ -237,3 +237,26 @@
   - `alembic` tracks our models and migrations
   - Look at the `alembic` folder and `alembic.ini` to see files and settings associated with your migrations
 - Run `reflex db makemigrations`, then run `reflex db migrate` &rarr; Changes made to migrations or models will require these to be run again (???)
+
+## Storing Data with Models and Forms
+- `ContractEntryModel` &rarr; Defines the schema (i.e., the structure and data types) for a database table
+  - Lots of things being inferred because we did not define the database table in a robust way (we did not need to)
+  - We avoided a lot of the boilerplate by using `SQLModel` &rarr; Abstracts away the difficult stuff
+- Submit the data in the `handle_submit()` method
+  - Use the code `with rx.session() as session` &rarr; Use this whenever you want to do a database session
+    - Create a new instance of the database and unpack the `form_data` in the `ContactEntryModel`
+    - Use the session to insert the data into the database with `session.add(db_entry)` &rarr; Can be done multiple times to bulk add things to the database
+    - When the session is done, then we can use `session.commit()` to commit our changes to the database (???)
+- Do we need to make the model more robust to allow for empty fields in the database? &rarr; Speaks to handling form data
+  - Code:
+    ```
+    data = {}
+    for k,v in form_data.items:
+        if v == "" or v is None:
+          continue
+        data[k] = v
+    ```
+    - If one of the non-required fields is left empty, then this code causes an error when you try to insert the data into the database
+  - What can we do with this data?
+  - Can we validate this data further? Can we tell the user if something is incorrect or wrong? Is the data good enough to go into the database?
+  - Do not want to run into errors when doing the session

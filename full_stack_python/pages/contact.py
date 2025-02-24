@@ -26,8 +26,20 @@ class ContactState(rx.State):
         print(form_data)
         """Handle the form submit."""
         self.form_data = form_data
-        self.did_submit = True
-        yield
+        data = {}
+        for k,v in form_data.items():
+            if v == "" or v is None:
+                continue
+            data[k] = v
+        with rx.session() as session:
+            db_entry = ContactEntryModel(
+                **data
+            )
+            session.add(db_entry)
+            session.commit()
+            self.did_submit = True
+            yield
+
         await asyncio.sleep(2)
         self.did_submit = False
         yield
