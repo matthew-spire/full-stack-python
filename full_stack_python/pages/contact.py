@@ -6,12 +6,19 @@ from .. import navigation
 
 class ContactState(rx.State):
     form_data: dict = {}
+    did_submit: bool = False
+
+    @rx.var
+    def thank_you(self) -> str:
+        first_name = self.form_data.get("first_name") or ""
+        return f"Thank you {first_name}".strip() + "!"
 
     @rx.event
     def handle_submit(self, form_data: dict):
         print(form_data)
         """Handle the form submit."""
         self.form_data = form_data
+        self.did_submit = True
 
 
 @rx.page(route=navigation.routes.CONTACT_ROUTE)
@@ -55,16 +62,17 @@ def contact_page() -> rx.Component:
     ),
     child = rx.vstack(
                 rx.heading("Contact Us", size="9"),
+                rx.cond(ContactState.did_submit, ContactState.thank_you, ""),
                 rx.desktop_only(
                     rx.box(
                         contact_form,
-                        width="25vw",
+                        width="33vw",
                     ),
                 ),
                 rx.tablet_only(
                     rx.box(
                         contact_form,
-                        width="50vw",
+                        width="66vw",
                     ),
                 ),
                 rx.mobile_only(
