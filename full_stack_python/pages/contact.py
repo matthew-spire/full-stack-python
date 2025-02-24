@@ -1,4 +1,5 @@
 import reflex as rx
+import asyncio
 
 from ..ui.base import base_page
 from .. import navigation
@@ -14,11 +15,15 @@ class ContactState(rx.State):
         return f"Thank you {first_name}".strip() + "!"
 
     @rx.event
-    def handle_submit(self, form_data: dict):
+    async def handle_submit(self, form_data: dict):
         print(form_data)
         """Handle the form submit."""
         self.form_data = form_data
         self.did_submit = True
+        yield
+        await asyncio.sleep(2)
+        self.did_submit = False
+        yield
 
 
 @rx.page(route=navigation.routes.CONTACT_ROUTE)
