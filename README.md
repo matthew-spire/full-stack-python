@@ -191,3 +191,11 @@
       ```
   - Issue: Message remains even after navigating away from the page &rarr; Need to clear out the state (???)
     - Timeout method
+
+## Refresh State with Python Asyncio Timeouts
+- Implement a timeout method &rarr; Want to change the `did_submit` status of our form after a certain amount of time
+- Need to turn the `handle_submit` function into an asynchronous one, then use built-in asynchronous features of Python &rarr; `asyncio`
+  - Use of `yield` after the form data has been submitted and `did_submit` is set to `True`, as well after setting `did_submit` back to `False`
+    - `yield` tells Reflex to process state updates incrementally rather than all at once at the end of the function &rarr; Without `yield`, Reflex will batch all state changes and update the UI only after the function finishes, which could lead to undesired UI behavior
+  - Use `await asyncio.sleep(2)` to specify how long to wait before executing the next line of code
+- Timeout is different than countdown
