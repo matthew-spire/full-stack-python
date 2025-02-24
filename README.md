@@ -167,4 +167,5 @@
 - Fix the form styling &rarr; Use [Common Props](https://reflex.dev/docs/styling/common-props/) or Style and Layout Props for CSS
 - Set the width of each form input to 100% using `"width"="100%"`
 - Use `desktop_only()`, `tablet_only()`, and `mobile_only()`, then fiddle around with the viewport width for each in order to get a style that suits your use case
+  - Make sure to encapsulate the form and its viewport width within a `rx.box()`
 - Put the First Name and Last Name inputs into an `rx.hstack()` and set the width of the `hstack()` to 100%

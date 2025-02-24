@@ -62,12 +62,16 @@ def contact_page() -> rx.Component:
                     ),
                 ),
                 rx.tablet_only(
-                    contact_form,
-                    width="50vw",
+                    rx.box(
+                        contact_form,
+                        width="50vw",
+                    ),
                 ),
                 rx.mobile_only(
-                    contact_form,
-                    width="100vw",
+                    rx.box(
+                        contact_form,
+                        width="100vw",
+                    ),
                 ),
                 spacing="5",
                 justify="center",
