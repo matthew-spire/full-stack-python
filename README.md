@@ -169,3 +169,25 @@
 - Use `desktop_only()`, `tablet_only()`, and `mobile_only()`, then fiddle around with the viewport width for each in order to get a style that suits your use case
   - Make sure to encapsulate the form and its viewport width within a `rx.box()`
 - Put the First Name and Last Name inputs into an `rx.hstack()` and set the width of the `hstack()` to 100%
+
+## Conditional Rendering
+- Want to display some sort of (pop-up) message when the user successfully submits a form
+- Add a conditional element (`rx.cond()`) after the heading in `contact.py`
+  - `rx.cond()` can be used on all sorts of things &rarr; Make sure that the arguments are the same (i.e., both props, both strings, etc.)
+- Determining the situation is done using the state
+  - In the `ContactState`, create a boolean to determine whether or not the form has been submitted
+  - Update the value of `did_submit` in the `handle_submit` method &rarr; Make sure to do this after the form data has been handled
+  - Change the message returned using the state &rarr; The message should return the form data
+    - Need a default value as well &rarr; `rx.cond(ContactState.did_submit, ContactState.form_data.to_string(), "")`
+  - Use some of the data (e.g., the `first_name`) in the message by defining a `@rx.var` in the `ContactState` class, then using that variable in the conditional
+    - Code:
+      ```
+      @rx.var
+      def thank_you(self) -> str:
+          first_name = self.form_data.get("first_name") or ""
+          return f"Thank you {first_name}".strip() + "!"
+      
+      rx.cond(ContactState.did_submit, ContactState.thank_you, ""),
+      ```
+  - Issue: Message remains even after navigating away from the page &rarr; Need to clear out the state (???)
+    - Timeout method
