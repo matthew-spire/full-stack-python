@@ -213,3 +213,27 @@
 - Issue where refreshing the Contact page or leaving and coming back to the Contact page did not reset the time
   - Needed to ensure that we reset the countdown before starting the timer
   - Stil seems somewhat glitchy
+
+## Your First Database Model
+- Create a database for our Reflex project &rarr; Use the built-in database SQLite
+  - Goal: Collect data from our form and store it in a SQL database
+- Using SQL because it is scalable
+- Refer to the [Database documentation](https://reflex.dev/docs/database/overview/)
+  - Reflex uses [`SQLModel`](https://sqlmodel.tiangolo.com/) &rarr; Look here if you ever need to change how you define your models
+  - Need to also be aware of [`SQLAlchemy`](https://www.sqlalchemy.org/) and [`Pydantic`](https://docs.pydantic.dev/latest/), both of which are used by `SQLModel`
+  - We are using `SQLModel` to basically do everything (work with data, tables, etc.) &rarr; No need to learn `SQL`
+- Add the database connection to `rxconfig.py`
+  - Note that other databases are supported
+- Using an ORM (i.e., an Object-Relational Mapping) &rarr; Have a Python class be responsible for how our database table is designed
+  - Python class will not be that different from the `ContactState`
+- Goes more into naming convention and using `ContactEntryModel` which lets him know it is a model vs. `ContractEntryState` which lets him know it is a state
+- Uses a spreadsheet to show what a database table looks like
+  - Spreadsheet is the database
+  - An individual sheet within the spreadsheet is a table in the database
+  - Columns in the sheet are form input fields (e.g., `first_name`, `last_name`, etc.)
+  - A row in the sheet is the actual data submitted via the form
+- Define the `ContactEntryModel` with the appropriate columns in `contact.py`
+- Run `reflex db init` to initialize the connection with the database and run various things from `alembic` &rarr; Should only need to run once
+  - `alembic` tracks our models and migrations
+  - Look at the `alembic` folder and `alembic.ini` to see files and settings associated with your migrations
+- Run `reflex db makemigrations`, then run `reflex db migrate` &rarr; Changes made to migrations or models will require these to be run again (???)
