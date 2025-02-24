@@ -19,27 +19,34 @@ def contact_page() -> rx.Component:
     # Contact Page
     contact_form = rx.form(
         rx.vstack(
-            rx.input(
-                name="first_name",
-                placeholder="First Name",
-                required=True,
-                type="text",
-            ),
-            rx.input(
-                name="last_name",
-                placeholder="Last Name",
-                type="text",
+            rx.hstack(
+                rx.input(
+                    name="first_name",
+                    placeholder="First Name",
+                    required=True,
+                    type="text",
+                    width="100%",
+                ),
+                rx.input(
+                    name="last_name",
+                    placeholder="Last Name",
+                    type="text",
+                    width="100%",
+                ),
+                width="100%",
             ),
             rx.input(
                 name="email",
                 placeholder="Email",
                 required=True,
                 type="email",
+                width="100%",
             ),
             rx.text_area(
                 name="message",
                 placeholder="Message",
                 required=True,
+                width="100%",
             ),
             rx.button("Submit", type="submit"),
         ),
@@ -48,7 +55,24 @@ def contact_page() -> rx.Component:
     ),
     child = rx.vstack(
                 rx.heading("Contact Us", size="9"),
-                contact_form,
+                rx.desktop_only(
+                    rx.box(
+                        contact_form,
+                        width="25vw",
+                    ),
+                ),
+                rx.tablet_only(
+                    rx.box(
+                        contact_form,
+                        width="50vw",
+                    ),
+                ),
+                rx.mobile_only(
+                    rx.box(
+                        contact_form,
+                        width="100vw",
+                    ),
+                ),
                 spacing="5",
                 justify="center",
                 min_height="85vh",
