@@ -199,3 +199,17 @@
     - `yield` tells Reflex to process state updates incrementally rather than all at once at the end of the function &rarr; Without `yield`, Reflex will batch all state changes and update the UI only after the function finishes, which could lead to undesired UI behavior
   - Use `await asyncio.sleep(2)` to specify how long to wait before executing the next line of code
 - Timeout is different than countdown
+
+## Counting with Asyncio and Reflex
+- Countdown not really applicable for the Contact page, but good to know how to do for other situations (e.g., a product release)
+- Add a variable for the amount of time you want to count down to the state class
+- Create a `rx.var` for the `time_left` &rarr; Makes the variable accessible outside the state
+  - Use the variable in the child element just below the heading
+- Function to actually perform the countdown
+  - Use a while loop to decrement the `time_left` as long as `time_left > 0`
+  - Need to use `await asyncio.sleep(1)` and then `yield` the result
+- Start the countdown, which can be done in the `@rx.page()` decorator
+  - `@rx.page()` can only have the `on_load` functionality and does not need the route
+- Issue where refreshing the Contact page or leaving and coming back to the Contact page did not reset the time
+  - Needed to ensure that we reset the countdown before starting the timer
+  - Stil seems somewhat glitchy

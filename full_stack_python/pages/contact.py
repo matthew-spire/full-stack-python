@@ -8,6 +8,13 @@ from .. import navigation
 class ContactState(rx.State):
     form_data: dict = {}
     did_submit: bool = False
+    time_left: int = 5
+
+    @rx.var
+    def time_left_label(self) -> str:
+        if self.time_left < 1:
+            return "No time left"
+        return f"{self.time_left} seconds"
 
     @rx.var
     def thank_you(self) -> str:
@@ -25,8 +32,21 @@ class ContactState(rx.State):
         self.did_submit = False
         yield
 
+    @rx.event
+    async def start_countdown(self):
+        self.time_left = 5  # Reset countdown on page load
+        yield  # Ensure UI updates to reflect the reset time
 
-@rx.page(route=navigation.routes.CONTACT_ROUTE)
+        while self.time_left > 0:
+            await asyncio.sleep(1)
+            self.time_left -= 1
+            yield
+
+
+@rx.page(
+        on_load=ContactState.start_countdown,
+        route=navigation.routes.CONTACT_ROUTE
+)
 def contact_page() -> rx.Component:
     # Contact Page
     contact_form = rx.form(
@@ -67,6 +87,7 @@ def contact_page() -> rx.Component:
     ),
     child = rx.vstack(
                 rx.heading("Contact Us", size="9"),
+                rx.text(ContactState.time_left_label),
                 rx.cond(ContactState.did_submit, ContactState.thank_you, ""),
                 rx.desktop_only(
                     rx.box(
