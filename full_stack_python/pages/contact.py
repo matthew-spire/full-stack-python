@@ -1,14 +1,16 @@
 import reflex as rx
 import asyncio
 
+from sqlmodel import Field
+
 from ..ui.base import base_page
 from .. import navigation
 
 
 class ContactEntryModel(rx.Model, table=True):
     first_name: str
-    last_name: str
-    email: str
+    last_name: str | None = None
+    email: str = Field(nullable=True)
     message: str
 
 
