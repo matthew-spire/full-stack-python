@@ -6,6 +6,20 @@ from ..ui.base import base_page
 from . import form, state
 
 
+def contact_entries_list_page() -> rx.Component:
+    # Contact Entries Page
+    return base_page(
+        rx.vstack(
+            rx.heading("Contact Entries", size="7"),
+            spacing="5",
+            # justify="center",
+            min_height="85vh",
+            align="center",
+            text_align="center",
+        ),
+    )
+
+
 def contact_page() -> rx.Component:
     # Contact Page
     child = rx.vstack(

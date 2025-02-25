@@ -326,3 +326,31 @@
     - The page and how we render out the form that turns into the model
   - Build off the idea of a database model so we can actually retrieve data, update data, and delete data
   - Deleted `contact.py` in the `pages` folder
+
+## Listing Stored Database Entries
+- Retrieving data will be done inside of a state class &rarr; Specifically, inside of `ContactState`
+- Define a new method inside of `state.py` in the `contact` module
+  - New method, `list_entries()` will go below `handle_submit()`
+- Need to use a `rx.session()` to get our entries back
+  - Within the session we want to select all of our entries
+    - `select` command will come from `SQLModel`, so make sure to include the necessary import
+    - Execute the `select` on the model itself
+    - Use `.all()` to get all of the entries back
+  - Set the entries in the state using `self.entries = entries`
+  - Store the entries in a list (make sure to include the necessary import) &rarr; Create a variable beneath the `form_data` dictionary `entries: List['ContactEntryModel'] = []`
+    - Example of how we can list things out and assign them
+- Page Creation and Routing
+  - In `page.py` within the `contact` module, create a new page called `contact_entries_list_page`
+  - Add the `contact_entries_list_page` to `__init__.py` in the `contact` directory
+  - Need to route `contact_entries_list_page` &rarr; Update `routes.py` in the `navigation` folder and `full_stack_python.py`
+- Need to be able to call the `list_entries()` method as soon as the page loads
+  - In `full_stack_python.py`, specifically where we added the Contact Entries page, we want to use the `on_load` functionality to get our list entries from the state
+  - Check to see if it works by adding a `print` statement to the `list_entries` method in the `contact` directory's `state.py` file
+- Displaying the list entries on the Contact Entries page
+  - In `page.py` within the `contact` folder, create a new function `contact_entry_list_item()` to represent a single list entry
+    - Need to use the model
+    - Return an element containing the data of the list entry
+  - Need to be able to loop through the list entries on the frontend
+    - Use `rx.foreach()`
+    - Iterate through the list using a callback function
+    - `entries` from `state.py` in the `contact` module will not have any entries when it is first loaded, but we have `on_load` to add the entries in
