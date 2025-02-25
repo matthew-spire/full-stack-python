@@ -226,7 +226,7 @@
   - Note that other databases are supported
 - Using an ORM (i.e., an Object-Relational Mapping) &rarr; Have a Python class be responsible for how our database table is designed
   - Python class will not be that different from the `ContactState`
-- Goes more into naming convention and using `ContactEntryModel` which lets him know it is a model vs. `ContractEntryState` which lets him know it is a state
+- Goes more into naming convention and using `ContactEntryModel` which lets him know it is a model vs. `ContactEntryState` which lets him know it is a state
 - Uses a spreadsheet to show what a database table looks like
   - Spreadsheet is the database
   - An individual sheet within the spreadsheet is a table in the database
@@ -239,7 +239,7 @@
 - Run `reflex db makemigrations`, then run `reflex db migrate` &rarr; Changes made to migrations or models will require these to be run again (???)
 
 ## Storing Data with Models and Forms
-- `ContractEntryModel` &rarr; Defines the schema (i.e., the structure and data types) for a database table
+- `ContactEntryModel` &rarr; Defines the schema (i.e., the structure and data types) for a database table
   - Lots of things being inferred because we did not define the database table in a robust way (we did not need to)
   - We avoided a lot of the boilerplate by using `SQLModel` &rarr; Abstracts away the difficult stuff
 - Submit the data in the `handle_submit()` method
@@ -293,3 +293,36 @@
         }
         ```
   - Make sure to set `nullable=False` because we do not want this field to be nullable
+
+## Decouple the Contact Page, State & Model
+- Create a new module, `contact`, within the `full_stack_python` directory
+  - Make sure to add the `__init__.py` file
+- Add `state.py` to the `contact` module
+  - Move the state-related code and necessary imports from `contact.py` to `state.py`
+- Add `model.py` to the `contact` folder
+  - Move the model-related code and necessary imports from `contact.py` to `model.py`
+- Import the `ContactEntryModel` from `model.py` into `state.py`
+- Import `contact` from the `contact` module into `contact.py` &rarr; Add `contact.` before each use of `ContactState` in `contact.py`
+  - Possible because we added `ContactState` to the `__init__.py` file inside the `contact` directory
+- Make sure to clean up any unused imports
+- Verify that the Contact form still functions correctly
+- Add `form.py` to the `contact` folder
+  - Move the form-related code and necessary imports from `contact.py` to `form.py`
+  - Add `contact_form` to the `__init__.py` file
+  - Reference `contact_form` in the `contact.py` file
+- Create a `page.py` file in the `contact` module
+  - Move the page from `contact.py` into `page.py`
+  - Import the `form` and the `state` &rarr; Replace `contact.ContactState` with `state.ContactState` and replace `contact.contact_form()` with `form.contact_form()`
+  - Remove any unused imports
+- In the `__init__.py` file under the `pages` directory, comment out the code associated with the Contact page
+- `contact` module is not being imported anywhere &rarr; Leads to a 404 error
+  - Import the `contact_page` in the `__init__.py` file in the `contact` folder
+  - In `page.py` within the `contact` directory, remove the decorator with the route
+  - Add `contact_page` as a page in `full_stack_python.py`
+- The `contact` module is how we should be organizing our code
+  - Methodology of building a module (for dynamic pages)
+    - Understanding the model
+    - Understanding the state and how we manage or insert data into the model all coming from the state
+    - The page and how we render out the form that turns into the model
+  - Build off the idea of a database model so we can actually retrieve data, update data, and delete data
+  - Deleted `contact.py` in the `pages` folder
