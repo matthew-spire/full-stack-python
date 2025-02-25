@@ -272,3 +272,24 @@
 - You need to run a migration whenever you change a model
   - Run `reflex db makemigrations` &rarr; Preparing what we want to do
   - Run `reflex db migrate` &rarr; Implement the changes to the database
+
+## Adding a DateTime Field
+- Normally databases have a field (representing the date and time) for when data was actually entered into the database
+  - Sometimes there will be a field for when the data was updated
+- Look at the inserted field or the time the row was actually created (???)
+- Make the necessary import &rarr; `from datetime import datetime, timezone`
+- Update the model to include a new field to capture when the data was inserted into the database
+  - Combine use of `SQLModel`, `SQLAlchemy`, and `Pydantic`
+  - `default_factory` &rarr; Comes from `Pydantic` and allows us to have a callable function that will give us our default DateTime (see `get_utc_now()`)
+    - Everything already in the database will get the default (???)
+  - Update the `SQLAlchemy` type(s) (that `SQLAlchemy` has for fields) to make sure that our database is updated as well &rarr; Think of this kind of like the different data types that SQL has for columns
+    - Column has a certain data type, we can filter in a range &rarr; For example, `created_at` can be filtered by a start date and an end date
+    - Type that we use is important &rarr; `sa_type=sqlalchemy.DateTime(timezone=True)`
+    - Keep database updated (???)
+      - Code:
+        ```
+        sa_column_kwargs={
+          'server_default': sqlalchemy.func.now()
+        }
+        ```
+  - Make sure to set `nullable=False` because we do not want this field to be nullable
