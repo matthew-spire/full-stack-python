@@ -260,3 +260,15 @@
   - What can we do with this data?
   - Can we validate this data further? Can we tell the user if something is incorrect or wrong? Is the data good enough to go into the database?
   - Do not want to run into errors when doing the session
+
+## Model Field Changes and Migrations
+- Change model field by adding a default value or allow it to be nullable (i.e., of type None)
+- Two ways to add default value or allow it to be nullable
+  - First way is by adding `| None = None` after the field type
+    - For example: `last_name: str | None = None`
+    - This seems to be the preferred/suggested method
+  - Another way is by using `Field` (from `sqlmodel`) and setting it to be nullable after the field type
+    - For example: `email: str = Field(nullable=True)`
+- You need to run a migration whenever you change a model
+  - Run `reflex db makemigrations` &rarr; Preparing what we want to do
+  - Run `reflex db migrate` &rarr; Implement the changes to the database
