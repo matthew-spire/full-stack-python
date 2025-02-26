@@ -354,3 +354,11 @@
     - Use `rx.foreach()`
     - Iterate through the list using a callback function
     - `entries` from `state.py` in the `contact` module will not have any entries when it is first loaded, but we have `on_load` to add the entries in
+- Want to do this in a more robust manner for a different data model/type
+- The `list_entries()` method contains a form of database querying
+  - Can change to query things that we actually care about
+  - Look into `SQLModel` and `SQLAlchemy` about database querying
+- Issues:
+  - The issue we were facing was because we had a comma after the `rx.box()` element in the `contact_entry_list_item()` function &rarr; Caused the function to return a tuple instead of a single Reflex component
+  - What happens if something is empty? For example, the `last_name` and `email` are nullable fields
+  - How do we restrict access to the Contact Entries page?
